@@ -523,7 +523,7 @@ What if <b>both</b> are in a box?
     <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
   </div>
 
-  <div class="text-3xl text-gray-300 i-carbon-add-alt mx-1" />
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
 
   <div class="flex flex-col items-center gap-3">
     <div class="h-24 flex items-center justify-center px-6 border-4 border-pink-500 rounded-xl bg-pink-50 shadow-md">
@@ -570,7 +570,7 @@ transition: slide-up
     <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
   </div>
 
-  <div class="text-3xl text-gray-300 i-carbon-add-alt mx-1" />
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
 
   <div class="flex flex-col items-center gap-3">
     <div class="h-24 flex items-center justify-center px-6 border-4 border-pink-500 rounded-xl bg-pink-50 shadow-md">
@@ -783,7 +783,7 @@ transition: slide-up
     <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
   </div>
 
-  <div class="text-3xl text-gray-400 i-carbon-arrows-horizontal mx-1" />
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
 
   <div class="flex flex-col items-center gap-3">
     <div class="h-24 flex items-center justify-center px-2 gap-3">
