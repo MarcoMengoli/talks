@@ -1,628 +1,911 @@
 ---
-# try also 'default' to start simple
-theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+theme: default
+colorSchema: light
+title: The Functional Side of C#
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
+  ## The Functional Side of C#
+  Functors and Monads in everyday code
 class: text-center
-# https://sli.dev/features/drawing
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable Comark Syntax: https://comark.dev/syntax/markdown
 comark: true
-# duration of the presentation
 duration: 35min
 ---
 
-# Welcome to Slidev
+# THE FUNCTIONAL SIDE OF C#
 
-Presentation slides for developers
+FUNCTORS AND MONADS IN EVERYDAY CODE
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+<div class="pt-12 text-gray-600">
+  Marco Mengoli
 </div>
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
-</div>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
-
 ---
-transition: fade-out
----
-
-# What is Slidev?
-
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
-
----
+layout: center
+class: text-center
 transition: slide-up
-level: 2
 ---
 
-# Navigation
+# Monad
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
+<div class="text-lg mt-8 p-3 rounded">
 
-## Keyboard Shortcuts
+> "A monad in X is just a monoid in the category of endofunctors of X"
 
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
+</div>
 
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
+<div class="text-sm text-gray-600">Saunders Mac Lane - Categories for the Working Mathematician</div>
 
----
-layout: two-cols
-layoutClass: gap-16
----
+<v-clicks>
 
-# Table of contents
+<div class="text-left text-sm mt-4 p-6 bg-gray-100 rounded">
 
-You can use the `Toc` component to generate a table of contents for your slides:
+A **monad** on a category $\mathcal{C}$ is an endofunctor $T: \mathcal{C} \to \mathcal{C}$ together with two natural transformations:
 
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
+$$
+\eta: \mathrm{Id}_{\mathcal{C}} \Rightarrow T \qquad \mu: T \circ T \Rightarrow T
+$$
 
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
+satisfying the following coherence laws:
 
-::right::
+$$
+\mu \circ T\mu = \mu \circ \mu T \qquad \mu \circ T\eta = \mu \circ \eta T = \mathrm{Id}_T
+$$
 
-<Toc text-sm minDepth="1" maxDepth="2" />
+i.e. a *monoid* in the category of endofunctors of $\mathcal{C}$.
 
----
-layout: image-right
-image: https://cover.sli.dev
----
+</div>
 
-# Code
+</v-clicks>
 
-Use code snippets and get the highlighting directly, and even types hover!
+<!-- 
+IDENTITA e MOLTIPLICAZIONE
 
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
+ASSOCIATIVITA e UNITA DESTRA E SINISTRA
 -->
 
 ---
-level: 2
+layout: center
+class: text-center
 ---
 
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
-}
-```
-
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
-```
-
-Non-code blocks are ignored.
-
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
-```
-````
+<img src="/global/thisisfine.jpg" class="h-4/5 mx-auto" />
 
 ---
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
+layout: center
+transition: slide-up
 ---
 
-# Themes
+# A ~~few~~ lot of steps back. Let's observe a pattern
 
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
-
-<br>
+Three snippets of **everyday** code. What do they have in common?
 
 <v-click>
 
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
+```csharp
+IEnumerable<int> numbers = new[] { 1, 2, 3, 4, 5 };
+IEnumerable<int> doubled = numbers.Select(n => n * 2);
 ```
 
 </v-click>
+<br>
+<v-click>
 
-<div mt-20 v-click>
+```csharp
+Task<User> userTask = FetchUserAsync(id);
+Task<string> nameTask = userTask.ContinueWith(t => t.Result.Name.ToUpper());
+```
 
-[Learn more](https://sli.dev/guide/animations#click-animation)
+</v-click>
+<br>
+<v-click>
 
+```csharp
+int? age = GetAge();
+int? nextYear = age is not null ? age.Value + 1 : null;
+```
+
+</v-click>
+<!-- 
+I never pull the value out. **I apply a function inside the context.**
+
+I don't wait. **I apply a function inside the async context.**
+
+I check for absence. **I apply a function inside the context of "maybe".**
+
+-->
+
+---
+layout: center
+transition: slide-up
+---
+
+# What do they have in common?
+
+<v-clicks>
+
+### They're all **boxes** 📦
+
+- `IEnumerable<T>` — a box with **many** values
+- `Task<T>`        — a box with a value that **will be computed**
+- `Nullable<T>`    — a box that **might or might not** have a value
+
+</v-clicks>
+
+<div v-click class="mt-8 text-xl text-orange-600">
+We don't care about the value itself.<br>
+We care about <b>how the value moves inside the box</b>.
 </div>
 
 ---
+layout: center
+class: text-center
+transition: slide-up
+---
 
-# Motions
+# 📦
 
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
+<div class="text-3xl mt-4">Let's talk about boxes.</div>
 
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
+---
+transition: slide-up
+---
 
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
+# A normal value and a plain function
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain value</span>
   </div>
 
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-2">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">
+        n=>n*3
+      </span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain function</span>
   </div>
-</div>
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
+  <div class="text-3xl font-light text-gray-200 mx-2">=</div>
 
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center">
+      <span class="text-4xl font-mono font-bold text-green-600">6</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain result</span>
+  </div>
 
 </div>
 
----
 
-# $\LaTeX$
+We have a value
 
-$\LaTeX$ is supported out-of-box. Powered by [$\KaTeX$](https://katex.org/).
+We have a function
 
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
+We apply the function to the value — `2 × 3`
 
 ---
+layout: center
+transition: slide-up
+---
 
-# Diagrams
+# The Box 📦 concept
 
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
+Let's define a generic type `Box<T>`
 
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
+<div class="flex items-center justify-center gap-12 mt-10">
 
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
+  <div class="flex flex-col items-center gap-4">
+    <div class="w-28 h-28 flex items-center justify-center border-4 border-slate-400 rounded-xl bg-gradient-to-br from-emerald-100 from-50% to-slate-300 to-50% shadow-md relative">
+      <div class="absolute top-2 right-2 p-1 rounded-full bg-white border border-slate-200 shadow-sm z-10">
+        <div class="i-carbon-help text-lg text-slate-600" />
+      </div>
+      <span class="text-5xl font-mono font-bold text-slate-700 z-0">2</span>
+    </div>
+    <div class="flex flex-col items-center leading-tight">
+      <span class="text-[10px] font-mono opacity-60 uppercase text-center">might NOT<br>EXIST</span>
+      <code class="mt-2 text-xs text-slate-600 font-bold px-2 py-0.5 bg-slate-100 rounded">Nullable&lt;int&gt;</code>
+    </div>
+  </div>
 
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
+  <div class="flex flex-col items-center gap-4">
+    <div class="w-28 h-28 flex items-center justify-center border-4 border-sky-400 rounded-xl bg-sky-100 shadow-md relative">
+      <div class="absolute top-2 right-2 p-1 rounded-full bg-white border border-sky-200 shadow-sm z-10">
+        <div class="i-carbon-time text-lg text-sky-600" />
+      </div>
+      <span class="text-5xl font-mono font-bold text-sky-700">2</span>
+    </div>
+    <div class="flex flex-col items-center leading-tight">
+      <span class="text-[10px] font-mono opacity-60 uppercase text-center">arrives<br>LATER</span>
+      <code class="mt-2 text-xs text-sky-700 font-bold px-2 py-0.5 bg-sky-100 rounded">Task&lt;int&gt;</code>
+    </div>
+  </div>
 
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
+  <div class="flex flex-col items-center gap-4">
+    <div class="w-28 h-28 flex items-center justify-center border-4 border-rose-400 rounded-xl bg-gradient-to-br from-emerald-100 from-50% to-rose-300 to-50% shadow-md relative text-rose-700">
+      <div class="absolute top-2 right-2 p-1 rounded-full bg-white border border-rose-200 shadow-sm z-10">
+        <div class="i-carbon-warning-alt-filled text-lg text-rose-500" />
+      </div>
+      <span class="text-5xl font-mono font-bold text-rose-800">2</span>
+    </div>
+    <div class="flex flex-col items-center leading-tight">
+      <span class="text-[10px] font-mono opacity-60 uppercase text-center">might have<br>FAILED</span>
+      <code class="mt-2 text-xs text-rose-700 font-bold px-2 py-0.5 bg-rose-50 rounded">Result&lt;int&gt;</code>
+    </div>
+  </div>
 
 </div>
 
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
+<div class="mt-16 space-y-2 text-gray-500">
+  <p class="italic text-sm">You cannot touch the value <b>directly</b> when it's inside a box.</p>
+  <p class="text-xl font-light">
+    A value with <span class="text-sky-600 font-bold">superpower</span>. 
+    A value inside a <span class="text-emerald-600 font-bold">context</span>.
+  </p>
+</div>
 
 ---
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
+layout: center
+transition: slide-up
 ---
 
-# Draggable Elements
+# Box: Option
 
-Double-click on the draggable elements to edit their positions.
+Define a new type <code>Option&lt;T&gt;</code>: a special <code>Box&lt;T&gt;</code> that can contain a value or can be empty
 
+<div class="flex items-center justify-center gap-16 mt-4">
+
+  <div class="flex flex-col items-center gap-4 text-emerald-700/70">
+    <div class="w-32 h-32 flex items-center justify-center border-4 border-emerald-300 rounded-xl bg-emerald-50/50 shadow-sm">
+      <span class="text-5xl font-mono font-bold text-emerald-600/80">2</span>
+    </div>
+    <div class="flex flex-col items-center">
+      <span class="text-sm font-bold uppercase tracking-widest">Some(2)</span>
+    </div>
+  </div>
+
+  <div class="flex flex-col items-center gap-4 text-rose-700/70">
+    <div class="w-32 h-32 flex items-center justify-center border-4 border-rose-200 rounded-xl bg-rose-50/30">
+      <div class="i-carbon-circle-dash text-4xl opacity-30" />
+    </div>
+    <div class="flex flex-col items-center">
+      <span class="text-sm font-bold uppercase tracking-widest">None</span>
+    </div>
+  </div>
+
+</div>
+
+Definition in a generic typed functional language:
+```haskell
+type Option v = None | Some v
+```
+
+
+Implementation in C#:
+```csharp
+interface Option<T> {}
+record Some<T>(T Value) : Option<T>;
+record None<T> : Option<T>;
+```
+---
+layout: center
+---
+
+# Box: other examples
+
+Real-life boxes:
+
+<div class="text-base mt-4 space-y-2">
+
+- <code>Nullable&lt;T&gt;</code> — a <code>T</code> that can be <code>null</code>
+- <code>Func&lt;T&gt;</code> — a <code>T</code> that can be computed on demand
+- <code>Lazy&lt;T&gt;</code> — a <code>T</code> that can be computed on demand once, then cached
+- <code>Task&lt;T&gt;</code> — a <code>T</code> that is being computed asynchronously and will be available in the future, if it isn't already
+- <code>IEnumerable&lt;T&gt;</code> — a sequence of zero or more <code>T</code>s
+
+</div>
+
+---
+layout: center
+class: text-center
+transition: slide-up
+---
+
+<div class="text-8xl">
+Functor
+</div>
+
+<div class="text-2xl mt-6 text-gray-700">
+The Transformer
+</div>
+
+<div class="text-lg mt-2 text-gray-600"><code>map</code></div>
+
+
+---
+layout: center
+transition: slide-up
+---
+
+# Box: applying a plain function
+
+How can we apply our function to the value when it's wrapped in a context?
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-blue-500 rounded-xl bg-blue-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
+  </div>
+
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-2">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">
+        n=>n*3
+      </span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain function</span>
+  </div>
+
+  <div class="text-3xl font-light text-gray-200 mx-2">=</div>
+
+  <div class="flex flex-col items-center gap-3">
+    <span class="text-4xl font-mono font-bold text-green-600">???</span>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter mx-10">.</span>
+  </div>
+
+</div>
+
+<v-click>
+
+<div class="mt-8 text-lg">
+The function is a <b>plain</b> function. It doesn't know what a box is.
+</div>
+
+</v-click>
+
+---
+transition: slide-up
+---
+
+# `map` function
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-blue-500 rounded-xl bg-blue-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
+  </div>
+
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-2">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">
+        n=>n*3
+      </span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain function</span>
+  </div>
+
+  <div class="text-3xl font-light text-gray-200 mx-2">=</div>
+
+  <div class="flex flex-col items-center gap-3" v-click=2>
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-green-500 rounded-xl bg-green-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-green-600">6</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed result</span>
+  </div>
+
+</div>
+
+
+<div class="mt-1" v-click=1>
+
+The <b>map</b> is the function that:
+1. Opens the box
+2. Takes the value out of the boox
+3. Applies the function to the value <code>2 × 3</code>
+4. Re-wraps the result <code>6</code> in a box of the same kind
+
+</div>
+
+
+<div class="mt-8 text-center text-xl text-gray-700" v-click=3>
+<code>map</code> takes a <b>plain function</b> and applies it to a <b>boxed value</b>
+</div>
+
+---
+transition: slide-up
+---
+
+# Functor
+
+A <code>Functor</code> is any data type that defines how <code>Map</code> applies to it.
+
+Here's a generic <code>Map</code> signature:
+
+```haskell
+map::   (a->b)     ->        fa        ->        fb
+
+         takes         and a functor        and returns
+       a function                          a new functor
+```
+
+And here is the <code>Map</code> signature in C#:
+
+```csharp
+public static Box<TOut> Map<TIn, TOut>(this
+    Box<TIn> val, 
+    Func<TIn, TOut> f);
+```
+
+So we can take a plain function and apply it to <code>Box</code>ed value, because <code>Box</code> is a <code>Functor</code>
+
+---
+
+# Implementation
+
+Implementing <code>Map</code> function for both <code>IEnumerable</code> and <code>Option</code> 
+
+
+```csharp
+public static IEnumerable<TOut> Map<TIn, TOut>(this
+    IEnumerable<TIn> val, 
+    Func<TIn, TOut> f)
+{
+    foreach (var item in val)
+            yield return f(item);
+}
+    
+```
 <br>
 
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
+```csharp
+public static Option<TOut> Map<TIn, TOut>(this
+    Option<TIn> val, 
+    Func<TIn, TOut> f)
+    =>
+    val switch
+    {
+        None<TIn> _ => new None<TOut>(),
+        Some<TIn>(var x) => new Some<TOut>(f(x)),
+        _ => throw new InvalidOperationException("Option can be only Some or None")
+    };
 ```
 
+---
+layout: center
+class: text-center
+transition: slide-up
+---
+
+<div class="text-8xl">
+Applicative
+</div>
+
+<div class="text-2xl mt-6 text-gray-700">
+The Combiner
+</div>
+
+<div class="text-lg mt-2 text-gray-600"><code>apply</code></div>
+
+---
+transition: slide-up
+---
+
+# Raise the bar
+
+<div class="text-xl mt-4">
+What if <b>both</b> are in a box?
+</div>
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-blue-500 rounded-xl bg-blue-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
+  </div>
+
+  <div class="text-3xl text-gray-300 i-carbon-add-alt mx-1" />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-6 border-4 border-pink-500 rounded-xl bg-pink-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">
+        n=>n*3
+      </span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed function</span>
+  </div>
+
+  <div class="text-3xl font-light text-gray-200 mx-2">=</div>
+
+  <div class="flex flex-col items-center gap-3">
+      <span class="text-4xl font-mono font-bold text-green-600">???</span>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">.</span>
+  </div>
+
+</div>
+
+<v-click>
+
+<div class="mt-6 text-lg">
+Neither one is plain — also the <b>function itself</b> is now wrapped.
+</div>
+
+<div class="mt-2 text-lg text-gray-700">
+<code>map</code> can't help: it wants a plain function.
+</div>
+
+</v-click>
+
+---
+transition: slide-up
+---
+
+# `apply` function
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-blue-500 rounded-xl bg-blue-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
+  </div>
+
+  <div class="text-3xl text-gray-300 i-carbon-add-alt mx-1" />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-6 border-4 border-pink-500 rounded-xl bg-pink-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">
+        n=>n*3
+      </span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed function</span>
+  </div>
+
+  <div class="text-3xl font-light text-gray-200 mx-2">=</div>
+
+  <div class="flex flex-col items-center gap-3" v-click=2>
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-green-500 rounded-xl bg-green-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-green-600">6</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed result</span>
+  </div>
+
+</div>
+
+
+
+<div class="mt-1" v-click=1>
+
+The <code>apply</code> is the function that:
+1. Opens the boxes
+2. Takes the value and the function out of the box
+3. Applies the function to the value <code>2 × 3</code>
+4. Re-wraps the result <code>6</code> in a box of the same kind
+
+</div>
+
+<div class="mt-3 text-center text-xl text-gray-700" v-click="3">
+<code>apply</code> takes a <b>boxed function</b> and applies it to a <b>boxed value</b>
+</div>
+
+<div class="mt-2 text-center text-xl text-gray-700" v-click="4">
+It makes two boxes <b>interact</b>
+</div>
+
+<div class="mt-2 text-center text-lg text-gray-700" v-click="5">
+<code>apply</code> is the bridge that lets a <b>boxed function</b> consume <b>boxed arguments</b>, one at a time
+</div>
+
+---
+transition: slide-up
+---
+
+# Applicative
+
+An <code>Applicative</code> is any data type that defines how <code>Pure</code> and <code>Apply</code> apply to it:
+1. <code>Pure</code> (or <code>Return</code>): put a plain value into a default box.
+2. <code>Apply</code> (or <code>&lt;*&gt;</code>): apply a boxed function to a boxed value.
+
+```haskell
+pure::     a       ->       fa
+         takes          and puts it 
+        a value           in a box
+
+apply::  f (a->b)  ->        fa        ->        fb
+          takes         and a functor        and returns
+    a boxed function                       a new functor
+```
+
+
+```csharp
+public static Box<T> Return<T>(T val);
+
+public static Box<TOut> Apply<TIn, TOut>(this 
+    Box<Func<TIn, TOut>> f, 
+    Box<TIn> val);
+```
+
+So we can take a <code>Box</code>ed function and apply it to a <code>Box</code>ed value, because <code>Box</code> is an <code>Applicative</code>
+
+---
+transition: slide-up
+---
+
+# Implementation: IEnumerable
+
+Implementing `Return` and `Apply` for `IEnumerable` (Cartesian Product)
+
+```csharp
+public static IEnumerable<T> Return<T>(T val)
+{
+    yield return val;
+}
+```
+<br>
+```csharp
+public static IEnumerable<TOut> Apply<TIn, TOut>(this
+    IEnumerable<Func<TIn, TOut>> functions, 
+    IEnumerable<TIn> values)
+{
+    foreach (var f in functions)
+        foreach (var val in values)
+            yield return f(val);
+}
+```
+
+---
+
+# Implementation: Option
+
+Implementing `Return` and `Apply` for the `Option` type.
+
+```csharp
+public static Option<T> Return<T>(T val) => new Some<T>(val);
+```
+<br>
+```csharp
+public static Option<TOut> Apply<TIn, TOut>(this
+    Option<Func<TIn, TOut>> f, 
+    Option<TIn> val) 
+    =>
+    (f, val) switch
+    {
+        (Some<Func<TIn, TOut>>(var func), Some<TIn>(var v)) => new Some<TOut>(func(v)),
+        _ => new None<TOut>()
+    };
+```
+
+---
+layout: center
+class: text-center
+transition: slide-up
+---
+
+<div class="text-8xl">
+Monad
+</div>
+
+<div class="text-2xl mt-6 text-gray-700">
+The Chainer
+</div>
+
+<div class="text-lg mt-2 text-gray-600"><code>bind</code></div>
+
+---
+transition: slide-up
+---
+
+# A function that returns a box
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3" v-click=2>
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-blue-500 rounded-xl bg-blue-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
+  </div>
+
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" v-click=2 />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-2 gap-3">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">n =></span>
+      <div class="w-28 h-20 flex items-center justify-center border-4 border-pink-500 rounded-xl bg-pink-50">
+        <span class="text-3xl font-mono font-bold text-pink-500">n * 3</span>
+      </div>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">function returning a box</span>
+  </div>
+
+  <div class="text-3xl font-light text-gray-200 mx-2" v-click=4>=</div>
+
+  <div class="flex flex-col items-center gap-3" v-click=4>
+    <div class="w-32 h-32 flex items-center justify-center border-4 border-green-600 rounded-2xl bg-green-100/50 shadow-lg">
+      <div class="w-20 h-20 flex items-center justify-center border-4 border-green-500 rounded-xl bg-green-50 shadow-sm">
+        <span class="text-4xl font-mono font-bold text-green-600">6</span>
+      </div>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">double boxed result</span>
+  </div>
+
+</div>
+
+<div class="mt-8 text-lg">
+The function takes a <b>plain</b> value, but it hands back a <b>boxed</b> one.
+</div>
+
+<div class="mt-8 text-lg" v-click=1>
+What if we use <code>map</code>?
+</div>
+
+<div class="mt-8 text-lg" v-click=3>
+It always wraps the result in a box, but the function already returns a box…
+</div>
+
+<div class="mt-4 text-center text-xl text-red-700" v-click=4>
+A box inside a box. The Matrioska effect. 🪆
+</div>
+
+
+---
+transition: slide-up
+---
+
+# `bind` function
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-blue-500 rounded-xl bg-blue-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
+  </div>
+
+  <div class="text-3xl text-gray-400 i-carbon-arrows-horizontal mx-1" />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-2 gap-3">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">n =></span>
+      <div class="w-28 h-20 flex items-center justify-center border-4 border-pink-500 rounded-xl bg-pink-50">
+        <span class="text-3xl font-mono font-bold text-pink-500">n * 3</span>
+      </div>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">function returning a box</span>
+  </div>
+
+  <div class="text-3xl font-light text-gray-200 mx-2" v-click=2>=</div>
+
+  <div class="flex flex-col items-center gap-3" v-click=2>
+    <div class="w-24 h-24 flex items-center justify-center border-4 border-green-500 rounded-xl bg-green-50 shadow-md">
+      <span class="text-4xl font-mono font-bold text-green-600">6</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">flat result</span>
+  </div>
+
+</div>
+
+
+<div class="mt-6" v-click=1>
+
+1. Opens the first box
+2. Applies the box-returning function
+3. **Merges** the two boxes into one
+
+</div>
+
+<div class="mt-3 text-center text-xl text-gray-700" v-click=3>
+<code>bind</code> takes a <b>plain function</b>, applies it to a <b>boxed value</b> and <b>flattens</b> 
+</div>
+
+<div class="mt-6 text-center text-lg text-gray-700" v-click=4>
+box of box &nbsp;→&nbsp; single box
+</div>
+
+
+---
+transition: slide-up
+---
+
+# Monad
+
+A <code>Monad</code> must define two operations:
+1. <code>Bind</code> (or <code>&gt;&gt;=</code>, <code>flatMap</code>): apply a box-returning function to a boxed value and flatten the result.
+2. <code>Return</code>: exactly like the Applicative, put a plain value into a default box.
+
+Here are the generic signatures:
+
+```haskell
+pure::     a     ->       fa
+         takes        and puts it 
+        a value         in a box
+
+bind::    fa      ->   (a -> fb)   ->        fb
+        takes        and a box-returning   and returns
+       a functor          function        a flattened box
+```
+
+And here they are in C#:
+
+```csharp
+public static Box<T> Return<T>(T val);
+
+public static Box<TOut> Bind<TIn, TOut>(this Box<TIn> val, Func<TIn, Box<TOut>> f);
+```
+
+---
+transition: slide-up
+---
+
+# Implementation: IEnumerable
+
+Implementing `Return` and `Bind` for `IEnumerable`
+
+```csharp
+public static IEnumerable<T> Return<T>(T val)
+{
+    yield return val;
+}
+```
+<br>
+```csharp
+public static IEnumerable<TOut> Bind<TIn, TOut>(this
+    IEnumerable<TIn> values, 
+    Func<TIn, IEnumerable<TOut>> f)
+{
+    foreach (var val in values)
+    {
+        IEnumerable<TOut> innerValues = f(val);
+        foreach (var innerVal in innerValues)
+        {
+            yield return innerVal;
+        }
+    }
+}
+```
+
+---
+
+# Implementation: Option
+
+Implementing `Return` and `Bind` for the `Option` type.
+
+```csharp
+public static Option<T> Return<T>(T val) => new Some<T>(val);
+```
 <br>
 
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
+```csharp
+public static Option<TOut> Bind<TIn, TOut>(this
+    Option<TIn> val, 
+    Func<TIn, Option<TOut>> f) =>
+    
+    val switch
+    {
+        Some<TIn>(var x) => f(x),
+        _ => new None<TOut>()
+    };
 ```
 
 ---
@@ -630,8 +913,946 @@ layout: center
 class: text-center
 ---
 
-# Learn More
+<h1 class="text-7xl font-normal tracking-tighter mt-4">
+  Breathe
+</h1>
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+---
+transition: slide-up
+---
 
-<PoweredBySlidev mt-10 />
+# Four tools for the box
+
+```text
+ return :   A                           →   Box<A>     put a value in a box
+ map    :   Box<A>     ×  A → B         →   Box<B>     transform what's inside
+ apply  :   Box<A → B> ×  Box<A>        →   Box<B>     combine two boxes
+ bind   :   Box<A>     ×  A → Box<B>    →   Box<B>     chain without nesting
+```
+
+---
+layout: center
+transition: slide-up
+---
+
+# The Power Hierarchy
+
+<div class="mt-8 text-3xl text-center text-gray-700">
+  <b>Monad</b> <span class="mx-4">&gt;</span> <b>Applicative</b> <span class="mx-4">&gt;</span> <b>Functor</b>
+</div>
+
+<div v-click class="mt-12 space-y-6 text-lg">
+
+If you have an **Applicative**, you get a **Functor** for free:
+```csharp
+Map(val, f) == Apply(Return(f), val)
+```
+
+If you have a **Monad**, you get an **Applicative** for free:
+```csharp
+Apply(f, val) == Bind(f, func => Bind(val, v => Return(func(v))))
+```
+
+</div>
+
+<div v-click class="mt-12 text-xl text-center text-orange-600 font-bold">
+Monads are the most powerful.<br>So why not use them everywhere?
+</div>
+
+---
+layout: center
+transition: slide-up
+---
+
+# Applicative vs Monad 
+
+Look at the arguments
+
+<div class="grid grid-cols-2 gap-12 mt-12">
+
+<div class="p-8 bg-blue-50 rounded-xl shadow-sm border border-blue-100">
+
+### 1. Applicative (Combine)
+
+<div class="text-2xl mt-8 mb-8 font-mono font-bold text-center text-blue-700">
+  Box&lt;A&gt;, Box&lt;B&gt;
+</div>
+
+<ul class="space-y-4 text-lg text-gray-700 list-disc ml-6">
+  <li>Both boxes <b>already exist</b>.</li>
+  <li>Neither box needs the other to be created.</li>
+</ul>
+
+<div class="mt-12 text-center text-blue-600 font-black text-2xl uppercase tracking-widest">
+  Parallel
+</div>
+    
+</div>
+
+<div class="p-8 bg-green-50 rounded-xl shadow-sm border border-green-100">
+
+### 2. Monad (Bind)
+
+<div class="text-2xl mt-8 mb-8 font-mono font-bold text-center text-green-700">
+  Box&lt;A&gt;, A &rarr; Box&lt;B&gt;
+</div>
+
+<ul class="space-y-4 text-lg text-gray-700 list-disc ml-6">
+  <li>Only the <b>first box</b> exists.</li>
+  <li>To create the second box, you <b>must</b> extract the inner <code>A</code> first.</li>
+</ul>
+
+<div class="mt-12 text-center text-green-600 font-black text-2xl uppercase tracking-widest">
+  Sequential
+</div>
+
+</div>
+
+</div>
+
+---
+layout: center
+transition: slide-up
+---
+
+# Applicative vs Monad
+
+The effects
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+
+<div v-click class="p-6 bg-blue-50 rounded-lg">
+
+### Applicative (Combine)
+<div class="text-orange-600 font-bold mb-4">Independent contexts</div>
+
+- Step A and Step B don't know about each other.
+- They can be computed in **parallel**.
+- If one fails, the other can still run (we can collect *all* errors).
+
+</div>
+
+<div v-click class="p-6 bg-green-50 rounded-lg">
+
+### Monad (Chain)
+<div class="text-orange-600 font-bold mb-4">Sequential contexts</div>
+
+- Step B **depends** on the result of Step A.
+- They **must** be computed in order.
+- If Step A fails, Step B is **never executed** (fail-fast).
+
+</div>
+
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+<h2 class="opacity-60 font-light italic italic">And after all this effort...</h2>
+
+<v-click>
+<h1 class="text-7xl font-semibold tracking-tighter mt-4">
+  the dessert!
+</h1>
+
+<div class="text-5xl mt-8 animate-bounce">
+  🍰 🍩 🍮
+</div>
+</v-click>
+
+---
+layout: center
+transition: slide-up
+---
+
+# You already know them
+And you already use them!
+
+<div class="mt-6 text-sm">
+
+<table class="w-full border-collapse" v-click="1">
+<thead>
+<tr class="border-b-2 border-gray-400">
+<th class="text-left p-2"><b>Concept</b></th>
+<th class="text-left p-2"><b>FP operation</b></th>
+<th class="text-left p-2"><b>What it does</b></th>
+<th class="text-left p-2" v-click="2"><b>C# counterpart</b></th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-gray-200">
+<td class="p-2"><b>Context</b></td>
+<td class="p-2"><code>return</code> / <code>unit</code></td>
+<td class="p-2">Put a value in a box</td>
+<td class="p-2" v-click="3"><code>Task.FromResult</code>, <code>new[] { x }</code>, <code>Result.Success(x)</code></td>
+</tr>
+<tr class="border-b border-gray-200">
+<td class="p-2"><b>Functor</b></td>
+<td class="p-2"><code>map</code> / <code>fMap</code></td>
+<td class="p-2">Transform the inner value</td>
+<td class="p-2" v-click="4"><code>Select(x =&gt; ...)</code></td>
+</tr>
+<tr class="border-b border-gray-200">
+<td class="p-2"><b>Applicative</b></td>
+<td class="p-2"><code>apply</code> / <code>pure</code></td>
+<td class="p-2">Combine multiple contexts</td>
+<td class="p-2" v-click="5"><code>Task.WhenAll</code>, <code>Zip</code>, <code>Result.Combine</code></td>
+</tr>
+<tr>
+<td class="p-2"><b>Monad</b></td>
+<td class="p-2"><code>bind</code> / <code>flatMap</code></td>
+<td class="p-2">Chain and flatten</td>
+<td class="p-2" v-click="6"><code>SelectMany(x =&gt; ...)</code>, <code>await</code>, <code>?.</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<div v-click="7" class="mt-10 text-center text-2xl text-orange-600">
+You were just missing the <b>names</b>.
+</div>
+
+---
+layout: center
+transition: slide-up
+---
+
+# The main monads in C#
+
+<div class="text-base mt-4 space-y-2">
+
+- <code>Nullable&lt;T&gt;</code> — a <code>T</code> that could be <code>null</code>
+- <code>Func&lt;T&gt;</code> — a <code>T</code> that can be computed on demand
+- <code>Lazy&lt;T&gt;</code> — a <code>T</code> that can be computed on demand once, then cached
+- <code>Task&lt;T&gt;</code> — a <code>T</code> that is being computed asynchronously and will be available in the future, if it isn't already
+- <code>IEnumerable&lt;T&gt;</code> — an ordered, read-only sequence of zero or more <code>T</code>s
+
+</div>
+
+
+From [<code>CSharpFunctionalExtensions</code>](https://github.com/vkhorikov/CSharpFunctionalExtensions):
+
+- <code>Maybe&lt;T&gt;</code> — a <code>T</code> that may or may not exist (null-safe alternative)
+- <code>Result&lt;T&gt;</code> — a <code>T</code> that may have failed, with an error attached
+<div v-click class="text-base mt-2 pt-2 border-t border-gray-300 space-y-2">
+
+**Other popular C# libraries featuring Monads:**
+- [LanguageExt](https://github.com/louthy/language-ext) — The most robust functional programming library for C#, featuring a wide array of Monads (Option, Either, Seq, etc.) inspired by Haskell.
+- [ErrorOr](https://github.com/amantinband/error-or) — A simple, fluent Result monad implementation focused strictly on error handling.
+- [Optional](https://github.com/nlkl/Optional) — A robust Option/Maybe monad implementation for C# to deal with missing values without nulls.
+
+</div>
+
+---
+transition: slide-up
+---
+
+# Functors in action
+
+```csharp
+// 1. Transform each order into its total        (IEnumerable)
+IEnumerable<decimal> totals = orders.Select(o => o.Total);
+
+// 2. Uppercase a name, if it exists             (Maybe)
+Maybe<string> upperName = maybeName.Map(n => n.ToUpper());
+
+// 3. Format a date once the async call completes (Task)
+Task<string> formatted = fetchDateAsync.Map(d => d.ToString("yyyy-MM-dd"));
+```
+
+<div v-click class="mt-8 text-center text-lg text-gray-700">
+A <b>plain function</b> applied <b>inside</b> a box.
+</div>
+
+---
+transition: slide-up
+---
+
+# Applicatives in action
+
+```csharp
+// 1. Two independent async calls, run in parallel
+await Task.WhenAll(SaveUser(u), SendWelcomeEmail(u));
+
+// 2. Zip two sequences element-by-element
+IEnumerable<decimal> subtotals = prices.Zip(quantities, (p, q) => p * q);
+
+// 3. Validate independent fields, collecting ALL errors
+Result form = Result.Combine(
+    ValidateEmail(req.Email),
+    ValidateAge(req.Age),
+    ValidateName(req.Name));
+```
+
+<div v-click class="mt-6 text-center text-lg text-gray-700">
+<b>Independent</b> boxed values, combined into one.
+</div>
+
+---
+
+# Monads in action
+
+```csharp
+// 1. Chained async — each step depends on the previous
+var user    = await FetchUser(id);
+var orders  = await FetchOrders(user.Id);
+var invoice = await BuildInvoice(orders);
+
+// 2. Null-safe property chain
+string? city = user?.Address?.City;
+
+// 3. Flatten a list of lists
+IEnumerable<Employee> all = departments.SelectMany(d => d.Employees);
+```
+
+<div v-click class="mt-6 text-center text-lg text-gray-700">
+Each step <b>returns a box</b>. The chain stays <b>flat</b>.
+</div>
+
+
+---
+layout: center
+transition: slide-up
+---
+
+# The limits of `Bind`
+
+---
+transition: slide-up
+---
+
+# Chaining too many binds...
+
+```csharp
+public Task<string?> GetCityOfFirstOrder(int userId) =>
+    FetchUser(userId)
+        .Bind(user => FetchFirstOrder(user.Id)
+            .Bind(order => FetchAddress(order.AddressId)
+                .Map(address => address.City)));
+```
+
+<v-click>
+
+<div class="text-red-700 mt-8 text-xl text-center">
+Nesting. Indentation. Arrows. Parentheses.<br>
+As the chain grows, it becomes harder to read.
+</div>
+
+</v-click>
+<v-click>
+<div class="text-gray-700 mt-4 text-lg text-center">
+We need a help.
+</div>
+
+</v-click>
+
+---
+transition: slide-up
+transition: slide-up
+---
+
+# In other languages
+How it is handled 
+
+Haskell - <code>do</code>notation
+
+```haskell
+getCityOfFirstOrder :: Int -> IO (Maybe String)
+getCityOfFirstOrder userId = do
+  user    <- fetchUser userId
+  order   <- fetchFirstOrder (userIdOf user)
+  address <- fetchAddress (addressIdOf order)
+  return (cityOf address)
+```
+
+Scala - <code>for</code>comprehension
+
+```scala
+def getCityOfFirstOrder(userId: Int): Future[Option[String]] =
+  for {
+    user    <- fetchUser(userId)
+    order   <- fetchFirstOrder(user.id)
+    address <- fetchAddress(order.addressId)
+  } yield address.city
+```
+
+---
+transition: slide-up
+layout: center
+class: text-center
+---
+
+<h1 class="text-7xl font-normal tracking-tighter mt-4">
+  Who will be our C# hero?
+</h1>
+---
+transition: slide-up
+---
+
+# The LINQ QUERY EXPRESSION SYNTAX
+
+<v-click>
+
+```csharp
+public Task<string?> GetCityOfFirstOrder(int userId)
+{
+    return
+        from user in FetchUser(userId)
+        from order in FetchFirstOrder(user.Id)
+        from address in FetchAddress(order.AddressId)
+        select address.City;
+}
+```
+
+</v-click>
+
+<v-click>
+
+<div class="text-gray-700 mt-4 text-lg text-center">
+The hero we need, but don't deserve
+</div>
+
+</v-click>
+
+
+<v-click>
+<div class="text-gray-700 mt-4 text-lg text-center">
+It's a <b>Monad Comprehension</b>: a universal language for <b>chaining contexts</b>.
+
+</div>
+</v-click>
+
+<v-click>
+<div class="text-gray-700 mt-4 text-lg text-center">
+Every <code>from</code> is a <code>SelectMany</code> (<code>bind</code>)
+
+</div>
+</v-click>
+
+
+<v-click>
+<div class="text-gray-700 mt-4 text-lg text-center">
+Every <code>select</code> is a <code>Select</code> (<code>map</code>)
+</div>
+
+</v-click>
+
+
+<v-click>
+<div class="text-gray-700 mt-4 text-lg text-center">
+That's it
+
+</div>
+</v-click>
+
+---
+transition: slide-up
+---
+
+# Beautify
+
+<div class="ext-gray-700 mt-4 text-lg">We have the following methods that we want to chain:</div>
+
+```csharp
+public static Result<User> GetUser(int id) => Result<User>.Success(new User(id, "Marco"));
+public static Result<Address> GetAddress(User u) => Result<Address>.Success(new Address("Mengoli"));
+public static Result<double> GetShippingCost(Address a) => Result<double>.Success(100.00);
+```
+
+<v-click>
+
+<div class="ext-gray-700 mt-4 text-lg">From chained <code>Bind</code>s:</div>
+
+```csharp
+var result = GetUser(1)
+    .SelectMany(user => GetAddress(user)
+        .SelectMany(address => GetShippingCost(address)
+            .SelectMany(cost => Result<string>.Success($"User: {user.Name}, Cost: {cost}"))));
+```
+
+
+</v-click>
+<v-click>
+
+<div class="ext-gray-700 mt-4 text-lg">To monadic comprehension:</div>
+
+```csharp
+Result<string> result = 
+    from user in GetUser(1)
+    from address in GetAddress(user)
+    from cost in GetShippingCost(address)
+    select $"User: {user.Name}, Cost: {cost}";
+```
+</v-click>
+
+---
+transition: slide-up
+---
+
+# This show was kindly sponsored by
+
+The implementation of the <code>SelectMany</code>s
+
+```csharp
+public static Result<U> SelectMany<T, U>(
+    this Result<T> source, 
+    Func<T, Result<U>> bind) 
+    => source.IsSuccess 
+        ? bind(source.Value) 
+        : Result<U>.Failure(source.Error);
+
+public static Result<V> SelectMany<T, U, V>(
+    this Result<T> source,
+    Func<T, Result<U>> bind,
+    Func<T, U, V> project)
+    => !source.IsSuccess 
+        ? Result<V>.Failure(source.Error) 
+        : bind(source.Value) is var next && !next.IsSuccess 
+            ? Result<V>.Failure(next.Error) 
+            : Result<V>.Success(project(source.Value, next.Value));
+```
+
+
+---
+transition: slide-up
+---
+
+# Another example: Task
+
+From repeated blocks
+
+```csharp
+public async Task<string?> GetCityOfFirstOrder(int userId)
+{
+    var user = await FetchUser(userId);
+    if (user is null) return null;
+
+    var order = await FetchFirstOrder(user.Id);
+    if (order is null) return null;
+
+    var address = await FetchAddress(order.AddressId);
+    if (address is null) return null;
+
+    return address.City;
+}
+```
+
+<div class="text-red-700 mt-2">Nesting, null-checks, noise</div>
+
+
+---
+transition: slide-up
+---
+
+# Or monadic Bind
+
+
+```csharp
+public Task<string?> GetCityOfFirstOrder(int userId)
+{
+    return FetchUser(userId)
+        .ContinueWith(userTask =>
+            userTask.Result is null
+                ? Task.FromResult<string?>(null)
+                : FetchFirstOrder(userTask.Result.Id)
+        )
+        .Unwrap()
+        .ContinueWith(orderTask =>
+            orderTask.Result is null
+                ? Task.FromResult<string?>(null)
+                : FetchAddress(orderTask.Result.AddressId)
+        )
+        .Unwrap()
+        .ContinueWith(addressTask =>
+            addressTask.Result?.City
+        );
+}
+
+```
+
+<div class="text-red-700 mt-2">Even worse</div>
+
+---
+transition: slide-up
+---
+
+# …to Monad Comprehension
+
+```csharp
+public Task<string?> GetCityOfFirstOrder(int userId) =>
+    from user    in FetchUser(userId)
+    from order   in FetchFirstOrder(user.Id)
+    from address in FetchAddress(order.AddressId)
+    select address.City;
+```
+
+<v-click>
+
+The flow is **linear**.
+
+The `Bind`s are **implicit**.
+
+Business logic **emerges** from the code.
+
+</v-click>
+
+---
+layout: center
+---
+
+# Railway Oriented Programming
+
+Code as a **railway** 🛤️
+
+---
+
+# Two tracks
+
+<img src="/global/railway-opaque.png" class="mx-auto"/>
+
+<v-click>
+
+If **any** step fails, the train **automatically jumps** onto the failure track.
+
+No `try/catch`. No cascades of `if (success)`.
+
+</v-click>
+
+---
+
+# Before: nested `if`s
+
+```csharp
+public HttpResponse CreateUser(string email, string name)
+{
+    if (string.IsNullOrEmpty(email))
+        return BadRequest("Empty email");
+
+    if (!email.Contains("@"))
+        return BadRequest("Invalid email");
+
+    var existing = _repo.FindByEmail(email);
+    if (existing is not null)
+        return Conflict("Email already registered");
+
+    try
+    {
+        var user = _repo.Save(new User(email, name));
+        return Ok(user);
+    }
+    catch (DbException ex)
+    {
+        return ServerError(ex.Message);
+    }
+}
+```
+
+---
+
+# After: the railway
+
+```csharp {all|2|3|4|5|6|all}
+public HttpResponse CreateUser(string email, string name) =>
+    Email.Create(email)
+        .Ensure(e => !_repo.Exists(e), "Email already registered")
+        .Map(e => new User(e, name))
+        .Bind(u => _repo.TrySave(u))
+        .Match(
+            onSuccess: user => Ok(user),
+            onFailure: err  => BadRequest(err));
+```
+
+<v-click>
+
+Every step returns `Result<T>`. One fails → the rest is **skipped**.
+
+Library: [`CSharpFunctionalExtensions`](https://github.com/vkhorikov/CSharpFunctionalExtensions)
+
+</v-click>
+
+---
+layout: center
+---
+
+# Solid foundations
+
+The railway works only if the tracks are **straight**.
+
+---
+
+# Immutability — `record`
+
+```csharp
+// ❌ Mutable: who changed it? when? why?
+public class User
+{
+    public string Email { get; set; }
+    public string Name  { get; set; }
+}
+
+user.Email = "other@domain.com"; // 🤷
+```
+
+<v-click>
+
+```csharp
+// ✅ Immutable: data doesn't change, it EVOLVES
+public record User(string Email, string Name);
+
+var updated = user with { Email = "other@domain.com" };
+// `user` is untouched. `updated` is a new instance.
+```
+
+</v-click>
+
+---
+
+# Pure functions
+
+<v-clicks>
+
+A function is **pure** if:
+
+- Same input → **same output**, always.
+- **No side effects** (no I/O, no globals, no exceptions).
+
+</v-clicks>
+
+<v-click>
+
+```csharp
+// ❌ Impure
+public int Next() => _counter++;
+
+// ✅ Pure
+public int Next(int counter) => counter + 1;
+```
+
+</v-click>
+
+<v-click>
+
+Pure functions are **trivial to test** and **trivial to reason about**.
+
+</v-click>
+
+---
+
+# Smart Constructors
+
+> An object must never be allowed to exist in an **invalid** state.
+
+<v-click>
+
+```csharp
+// ❌ Any string goes. Boom at runtime.
+public record Email(string Value);
+
+new Email("not-an-email"); // 🙃 compiles happily
+```
+
+</v-click>
+
+<v-click>
+
+```csharp
+// ✅ Centralized validation, error as a VALUE
+public record Email
+{
+    public string Value { get; }
+    private Email(string value) => Value = value;
+
+    public static Result<Email> Create(string input) =>
+        string.IsNullOrWhiteSpace(input) ? Result.Failure<Email>("empty")
+        : !input.Contains('@')           ? Result.Failure<Email>("invalid")
+        : Result.Success(new Email(input));
+}
+```
+
+</v-click>
+
+---
+layout: center
+---
+
+# The big practical example
+
+Let's put it all together.
+
+---
+
+# The requirement
+
+<v-clicks>
+
+1. We receive a **dirty string** (user input).
+2. We **clean** it (trim, lowercase).
+3. We **validate** it with a Smart Constructor.
+4. We make an **async call** to an external API.
+5. We **log** the step.
+6. We return an **HTTP response**.
+
+</v-clicks>
+
+<div v-click class="mt-8 text-orange-600">
+Zero try/catch. Zero nested ifs. Type-safe end-to-end.
+</div>
+
+---
+
+# The implementation
+
+````md magic-move {lines: true}
+```csharp
+// Step 1 — just the cleanup
+public Task<IResult> Handle(string rawEmail) =>
+    rawEmail.Trim().ToLowerInvariant();
+    // 🤔 where do we go from here?
+```
+
+```csharp
+// Step 2 — validation via Smart Constructor
+public Task<IResult> Handle(string rawEmail) =>
+    Email.Create(rawEmail.Trim().ToLowerInvariant());
+    // Result<Email>, but we still need async...
+```
+
+```csharp
+// Step 3 — Map to clean, Bind to validate
+public Task<IResult> Handle(string rawEmail) =>
+    Result.Success(rawEmail)
+        .Map(s => s.Trim().ToLowerInvariant())
+        .Bind(Email.Create);
+```
+
+```csharp
+// Step 4 — async call to the API
+public Task<IResult> Handle(string rawEmail) =>
+    Result.Success(rawEmail)
+        .Map(s => s.Trim().ToLowerInvariant())
+        .Bind(Email.Create)
+        .Bind(email => _userApi.FetchProfileAsync(email));
+```
+
+```csharp
+// Step 5 — Tap for logging (side-effect, ISOLATED)
+public Task<IResult> Handle(string rawEmail) =>
+    Result.Success(rawEmail)
+        .Map(s => s.Trim().ToLowerInvariant())
+        .Bind(Email.Create)
+        .Bind(email => _userApi.FetchProfileAsync(email))
+        .Tap(profile => _logger.Info($"Fetched {profile.Id}"));
+```
+
+```csharp
+// Step 6 — Match to close the railway into an HTTP response
+public Task<IResult> Handle(string rawEmail) =>
+    Result.Success(rawEmail)
+        .Map(s => s.Trim().ToLowerInvariant())
+        .Bind(Email.Create)
+        .Bind(email => _userApi.FetchProfileAsync(email))
+        .Tap(profile => _logger.Info($"Fetched {profile.Id}"))
+        .Match(
+            onSuccess: Results.Ok,
+            onFailure: Results.BadRequest);
+```
+````
+
+---
+layout: center
+---
+
+# Look at it again
+
+```csharp
+public Task<IResult> Handle(string rawEmail) =>
+    Result.Success(rawEmail)
+        .Map(s => s.Trim().ToLowerInvariant())
+        .Bind(Email.Create)
+        .Bind(email => _userApi.FetchProfileAsync(email))
+        .Tap(profile => _logger.Info($"Fetched {profile.Id}"))
+        .Match(
+            onSuccess: Results.Ok,
+            onFailure: Results.BadRequest);
+```
+
+<div v-click class="text-xl mt-8 text-cyan-600">
+Pure masterclass
+</div>
+
+<div v-click class="text-lg mt-4 text-gray-700">
+Readable. Type-safe. Testable. Zero ceremony.
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Conclusion
+
+<v-clicks>
+
+<div class="text-xl mt-8">
+FP in C# is <b>feasible</b>, and you are already using it.
+</div>
+
+<div class="text-xl mt-4">
+It's a tool to write code that's<br>
+<b>more robust, more testable</b>, and paradoxically<br>
+<b>simpler</b>.
+</div>
+
+<div class="text-lg mt-12 text-gray-600">
+You don't need categories, endofunctors, or monoids.
+</div>
+
+<div class="text-lg mt-2 text-gray-600">
+You just need to look at your <code>Select</code> and <code>SelectMany</code> with new eyes.
+</div>
+
+</v-clicks>
+
+---
+layout: default
+---
+
+# ⚠️ But also... With great power comes great... risks
+
+Overusing these patterns can lead to pitfalls:
+
+* **The "Stacked Monads" Problem**: 
+    C# **doesn't** handle **nested** contexts well. 
+    `Task<Option<IEnumerable<User>>>` quickly becomes a nightmare to unwrap without native Monad Transformers.
+
+* **Team Mindset & Culture**: 
+    They work beautifully in a team that with an **open mind** towards change and a **willingness** to learn new paradigms. Without this shared mindset, "elegant" code becomes "alien" code for your colleagues.
+* **Performance**: 
+    Every "Box" 📦 is an object allocation. In high-throughput paths, too many wrappers can impact the GC.
+
+> **Rule of thumb:** Use functional patterns to simplify logic and reduce errors, not to show off how much Category Theory you know.
+
+> **Keep it "C#-idiomatic" where possible.**
+
+---
+layout: center
+class: text-center
+---
+
+# Thank you. 🙏
+
+<div class="mt-8 text-gray-600">
+Questions?
+</div>
+
+<div class="mt-8 text-gray-600">
+(or let's go grab that dessert!)
+<div class="text-5xl mt-8 animate-bounce">
+  🍰 🍩 🍮
+</div>
+</div>
+
+
