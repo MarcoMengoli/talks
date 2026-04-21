@@ -79,7 +79,7 @@ transition: slide-up
 
 # A ~~few~~ lot of steps back. Let's observe a pattern
 
-Three snippets of **everyday** code. What do they have in common?
+Three snippets of **everyday** code
 
 <v-click>
 
@@ -147,50 +147,6 @@ transition: slide-up
 # 📦
 
 <div class="text-3xl mt-4">Let's talk about boxes.</div>
-
----
-transition: slide-up
----
-
-# A normal value and a plain function
-
-<div class="flex items-center justify-center gap-4 mt-8">
-
-  <div class="flex flex-col items-center gap-3">
-    <div class="w-24 h-24 flex items-center justify-center">
-      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
-    </div>
-    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain value</span>
-  </div>
-
-  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
-
-  <div class="flex flex-col items-center gap-3">
-    <div class="h-24 flex items-center justify-center px-2">
-      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">
-        n=>n*3
-      </span>
-    </div>
-    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain function</span>
-  </div>
-
-  <div class="text-3xl font-light text-gray-200 mx-2">=</div>
-
-  <div class="flex flex-col items-center gap-3">
-    <div class="w-24 h-24 flex items-center justify-center">
-      <span class="text-4xl font-mono font-bold text-green-600">6</span>
-    </div>
-    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain result</span>
-  </div>
-
-</div>
-
-
-We have a value
-
-We have a function
-
-We apply the function to the value — `2 × 3`
 
 ---
 layout: center
@@ -313,6 +269,49 @@ Real-life boxes:
 
 </div>
 
+
+---
+
+# A normal value and a plain function
+
+<div class="flex items-center justify-center gap-4 mt-8">
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center">
+      <span class="text-4xl font-mono font-bold text-blue-600">2</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain value</span>
+  </div>
+
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" />
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="h-24 flex items-center justify-center px-2">
+      <span class="text-4xl font-mono font-bold text-pink-500 whitespace-nowrap">
+        n=>n*3
+      </span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain function</span>
+  </div>
+
+  <div class="text-3xl font-light text-gray-200 mx-2">=</div>
+
+  <div class="flex flex-col items-center gap-3">
+    <div class="w-24 h-24 flex items-center justify-center">
+      <span class="text-4xl font-mono font-bold text-green-600">6</span>
+    </div>
+    <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">plain result</span>
+  </div>
+
+</div>
+
+
+We have a value
+
+We have a function
+
+We apply the function to the value — `2 × 3`
+
 ---
 layout: center
 class: text-center
@@ -368,13 +367,11 @@ How can we apply our function to the value when it's wrapped in a context?
 
 </div>
 
-<v-click>
 
 <div class="mt-8 text-lg">
 The function is a <b>plain</b> function. It doesn't know what a box is.
 </div>
 
-</v-click>
 
 ---
 transition: slide-up
@@ -425,7 +422,7 @@ The <b>map</b> is the function that:
 </div>
 
 
-<div class="mt-8 text-center text-xl text-gray-700" v-click=3>
+<div class="mt-8 text-center text-xl text-gray-700" v-click=2>
 <code>map</code> takes a <b>plain function</b> and applies it to a <b>boxed value</b>
 </div>
 
@@ -633,7 +630,7 @@ pure::     a       ->       fa
 
 apply::  f (a->b)  ->        fa        ->        fb
           takes         and a functor        and returns
-    a boxed function                       a new functor
+    a boxed function                        a new functor
 ```
 
 
@@ -719,14 +716,14 @@ transition: slide-up
 
 <div class="flex items-center justify-center gap-4 mt-8">
 
-  <div class="flex flex-col items-center gap-3" v-click=2>
+  <div class="flex flex-col items-center gap-3" v-click=1>
     <div class="w-24 h-24 flex items-center justify-center border-4 border-blue-500 rounded-xl bg-blue-50 shadow-md">
       <span class="text-4xl font-mono font-bold text-blue-600">2</span>
     </div>
     <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">boxed value</span>
   </div>
 
-  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" v-click=2 />
+  <div class="text-3xl text-gray-300 i-carbon-arrow-right mx-1" v-click=1 />
 
   <div class="flex flex-col items-center gap-3">
     <div class="h-24 flex items-center justify-center px-2 gap-3">
@@ -738,9 +735,9 @@ transition: slide-up
     <span class="text-[10px] font-mono opacity-40 uppercase tracking-tighter">function returning a box</span>
   </div>
 
-  <div class="text-3xl font-light text-gray-200 mx-2" v-click=4>=</div>
+  <div class="text-3xl font-light text-gray-200 mx-2" v-click=3>=</div>
 
-  <div class="flex flex-col items-center gap-3" v-click=4>
+  <div class="flex flex-col items-center gap-3" v-click=3>
     <div class="w-32 h-32 flex items-center justify-center border-4 border-green-600 rounded-2xl bg-green-100/50 shadow-lg">
       <div class="w-20 h-20 flex items-center justify-center border-4 border-green-500 rounded-xl bg-green-50 shadow-sm">
         <span class="text-4xl font-mono font-bold text-green-600">6</span>
@@ -755,15 +752,13 @@ transition: slide-up
 The function takes a <b>plain</b> value, but it hands back a <b>boxed</b> one.
 </div>
 
-<div class="mt-8 text-lg" v-click=1>
+<div class="mt-8 text-lg" v-click=2>
 What if we use <code>map</code>?
-</div>
 
-<div class="mt-8 text-lg" v-click=3>
 It always wraps the result in a box, but the function already returns a box…
 </div>
 
-<div class="mt-4 text-center text-xl text-red-700" v-click=4>
+<div class="mt-4 text-center text-xl text-red-700" v-click=3>
 A box inside a box. The Matrioska effect. 🪆
 </div>
 
@@ -811,7 +806,7 @@ transition: slide-up
 
 1. Opens the first box
 2. Applies the box-returning function
-3. **Merges** the two boxes into one
+3. **Flattens** the two boxes into one
 
 </div>
 
@@ -830,28 +825,29 @@ transition: slide-up
 
 # Monad
 
-A <code>Monad</code> must define two operations:
-1. <code>Bind</code> (or <code>&gt;&gt;=</code>, <code>flatMap</code>): apply a box-returning function to a boxed value and flatten the result.
-2. <code>Return</code>: exactly like the Applicative, put a plain value into a default box.
+A <code>Monad</code> is any data type that defines how <code>Return</code> and <code>Bind</code> apply to it:
+1. <code>Return</code>: exactly like the Applicative, put a plain value into a box.
+2. <code>Bind</code> (or <code>&gt;&gt;=</code>, <code>flatMap</code>): apply a box-returning function to a boxed value and flatten the result.
 
-Here are the generic signatures:
 
 ```haskell
-pure::     a     ->       fa
-         takes        and puts it 
-        a value         in a box
+return::     a     ->        fa
+           takes         and puts it 
+          a value          in a box
 
-bind::    fa      ->   (a -> fb)   ->        fb
-        takes        and a box-returning   and returns
-       a functor          function        a flattened box
+bind::      fa      ->     (a -> fb)     ->       fb
+          takes        and a box-returning    and returns
+        a functor          function         a flattened box
 ```
 
-And here they are in C#:
+<br>
 
 ```csharp
 public static Box<T> Return<T>(T val);
 
-public static Box<TOut> Bind<TIn, TOut>(this Box<TIn> val, Func<TIn, Box<TOut>> f);
+public static Box<TOut> Bind<TIn, TOut>(this 
+  Box<TIn> val, 
+  Func<TIn, Box<TOut>> f);
 ```
 
 ---
